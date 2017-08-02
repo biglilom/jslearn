@@ -1,0 +1,129 @@
+js验证是否为数字，最简单的方法：
+
+isNaN函数的使用：
+
+function checknum() {
+　　if (isNaN(frm.num.value)) {
+　　　　alert("请输入数字");
+　　　　frm.num.focus();
+
+　　　　return false;
+　　}
+}
+
+最完整最精确的方法：(正则表达式)
+
+1）
+
+　　 "^\\d+$"　　　　　　　　　　//非负整数（正整数 + 0）
+　　"^[0-9]*[1-9][0-9]*$"　　　 //正整数
+　　"^((-\\d+)|(0+))$"　　　　    //非正整数（负整数 + 0）
+　　"^-[0-9]*[1-9][0-9]*$"　　  //负整数
+　　"^-?\\d+$"　　　　　　　　   //整数
+　　"^\\d+("　　　　　　　　　　 //非负浮点数（正浮点数 + 0）
+　　"^(([0-9]+\\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\\.[0-9]+)|([0-9]*[1-9][0-9]*))$"　　　　//正浮点数
+　　"^((-\\d+("　　　　　　　　   //非正浮点数（负浮点数 + 0）
+　　"^(-(([0-9]+\\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\\.[0-9]+)|([0-9]*[1-9][0-9]*)))$"　　  //负浮点数
+　　"^(-?\\d+)("　　　　　　　　 //浮点数
+2）
+
+　　var r = /^\+?[1-9][0-9]*$/;　　//正整数
+      r.test(str);
+
+最直观的方法：
+
+<script language="javascript">
+　　function CheckMyForm() {
+　　　　var txt = myform.mytext.value;
+　　　　if(checknumber(txt)) {
+　　　　　　alert("只允许输入数字！");
+　　　　　　return false;
+　　　　}
+　　　　return true;
+　　}
+
+　　function checknumber(String) {
+　　　　var Letters = "1234567890";
+　　　　var i;
+　　　　var c;
+　　　　for( i = 0; i < Letters.length(); i ++ )   {   //Letters.length() ->>>>取字符长度
+　　　　　　c = Letters.charAt( i );
+　　　　　　if (Letters.indexOf( c ) ==-1)   { //在"Letters"中找不到"c"   见下面的此函数的返回值
+　　　　　　　　return true;
+　　　   　　}
+　　　　}
+　　　　return false;
+　　}
+</script>
+
+拓展：=====================================
+
+charAt　　
+
+charAt(int index)方法是一个能够用来检索特定引索下的字符的String实例的方法.
+　　charAt()方法返回一个位于提供给它的参数引索处的字符.
+　　如: str.chatAt(0)检索str中的第一个字符,str.charAt(str.length()-1)检索最后一个字符.
+　　下面的示例阐释了 charAt 方法的用法：
+　　<script language="javascript">
+　　　　function charAtTest(n){
+　　　　　　var str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";// Initialize variable.
+　　　　　　var s; // Declare variable.
+　　　　　　s = str.charAt(n - 1); // Get correct character // from position n – 1.
+　　　　　　return(s); // Return character.
+　　　　}
+　　　　alert(3);
+
+　　</script>
+
+IndexOf
+
+String.IndexOf 方法 (value, [startIndex], [count]):
+　　用法和 indexof() 完全相同。
+
+　　报告指定字符在此实例中的第一个匹配项的索引。搜索从指定字符位置开始，并检查指定数量的字符位置。
+
+　　参数
+
+　　value
+
+　　要查找的 Unicode 字符。 对 value 的搜索区分大小写。
+
+　　startIndex（Int32）
+
+　　可选项，搜索起始位置。不设置则从0开始。
+
+　　count（Int32）
+
+　　可选项，要检查的字符位置数。
+
+　　返回值
+
+　　如果找到该字符，则为 value 的索引位置；否则如果未找到，则为 -1。
+
+　　IndexOf()
+
+　　查找字串中指定字符或字串首次出现的位置,返首索引值，如：
+
+　　str1.IndexOf("字")； //查找“字”在str1中的索引值（位置）
+
+　　str1.IndexOf("字串")；//查找“字串”的第一个字符在str1中的索引值（位置）
+
+　　str1.IndexOf("字",start,end)；//从str1第start+1个字符起，查找end个字符，查找“字”在字符串STR1中的位置[从第一个字符算起]注意:start+end不能大于str1的长度
+
+　　indexof参数为string,在字符串中寻找参数字符串第一次出现的位置并返回该位置。如string s="0123dfdfdf";int i=s.indexof("df");这时i==4。
+
+　　如果需要更强大的字符串解析功能应该用Regex类，使用正则表达式对字符串进行匹配。
+
+　　[转贴]原信息URL：http://www.jb51.net/html/blog/1/23464.htm
+
+　　indexof() ：在字符串中从前向后定位字符和字符串；所有的返回值都是指在字符串的绝对位置，如为空则为- 1
+
+　　string test="asdfjsdfjgkfasdsfsgfhgjgfjgdddd";
+
+　　test.indexof('d') =2 //从前向后 定位 d 第一次出现的位置
+
+　　test.indexof('d',1) =2 //从前向后 定位 d 从第三个字符串 第一次出现的位置
+
+　　test.indexof('d',5,2) =6 //从前向后 定位 d 从第5 位开始查，查2位，即 从第5位到第7位；
+
+　　lastindexof() ：在字符串中从后向前定位字符和字符串；

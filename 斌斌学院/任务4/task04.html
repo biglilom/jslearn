@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>任务4：模拟队列</title>
+	<style type="text/css">
+		ul li{
+			float:left;
+			list-style: none;
+			display: block;
+			background: red;
+			font-size: 20px;
+			margin-left:5px;
+			padding:20px;
+			height:30px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+<input type="text" id="array-input" />
+<button id="btn-leftIn">左侧入</button>
+<button id="btn-rightIn">右侧入</button>
+&nbsp;&nbsp;
+<button id="btn-leftOut">左侧出</button>
+<button id="btn-rightOut">右侧出</button>
+<ul id="display">
+</ul>
+<script>
+(function(){
+//获得input输入框对象
+var array_input = document.getElementById("array-input");
+//对input输入框的值做判断，并返回值
+function inputValue(){
+	var value = array_input.value;
+	if(isNaN(value)){
+		alert("请输入数字");
+		return null;
+	}else{
+		return value;
+	}
+}
+//获得ul无序列表对象
+var ulElement = document.getElementById("display");
+//给四个按钮分别绑定事件
+//左侧入
+document.getElementById("btn-leftIn").addEventListener("click",function(){
+	//创建li节点
+	if(inputValue() != null){
+		var textNode = document.createTextNode(array_input.value);
+		var liElement = document.createElement("li");
+		liElement.appendChild(textNode);
+		//将li节点插入ul无序列表中
+		ulElement.insertBefore(liElement,ulElement.firstChild);
+	}	
+},false);
+//右侧入
+document.getElementById("btn-rightIn").addEventListener("click",function(){
+	//创建li节点
+	if(inputValue() != null){
+		var textNode = document.createTextNode(array_input.value);
+		var liElement = document.createElement("li");
+		liElement.appendChild(textNode);
+		//将li节点插入ul无序列表中
+		ulElement.appendChild(liElement);
+	}	
+},false);
+//左侧出
+document.getElementById("btn-leftOut").addEventListener("click",function(){
+	//获取ul无序列表的第一个节点
+	var liElement = ulElement.firstChild;
+	if(liElement){
+		ulElement.removeChild(liElement);
+	}
+},false);
+//左侧出
+document.getElementById("btn-rightOut").addEventListener("click",function(){
+	//获取ul无序列表的最后一个节点
+	var liElement = ulElement.lastChild;
+	if(liElement){
+		ulElement.removeChild(liElement);
+	}
+},false);
+
+//给所有li对象添加事件，使用事件委托
+ulElement.addEventListener("click",function(e){
+	var liElement = e.target;
+	ulElement.removeChild(liElement);
+},false)
+})();
+
+/*
+笔记
+1.判断是否为数组的方法
+isNaN()函数
+2.移除节点的三个步骤
+	1.获取需要移除节点
+	2.获取需要移除节点的父节点
+	3.通过父节点的removeChild()方法一次指定节点
+3.在某个元素之前插入节点
+	.insertBefore(InsertElement,NodeElement);
+
+ */
+</script>
+</body>
+</html>
